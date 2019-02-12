@@ -1,0 +1,4 @@
+{
+    "appService.deploySubpath": "",
+    "appService.defaultWebAppToDeploy": "/subscriptions/7e9477a8-9eab-47e8-a3e2-f89da2a1a769/resourceGroups/appsvc_rg_windows_centralus/providers/Microsoft.Web/sites/configcat-assistant"
+}
