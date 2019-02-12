@@ -18,6 +18,7 @@ namespace configcat.assistant.api.Controllers
 
             response.FulfillmentText = "ConfigCat rules!";
             return new OkObjectResult(response);
+            
         }
     }
 }
