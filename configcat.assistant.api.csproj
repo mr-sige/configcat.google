@@ -2,10 +2,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>c66d1c81-50ec-4c4e-9f69-0b557d1b1dc9</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App"/>
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All"/>
-    <PackageReference Include="Google.Apis.Dialogflow.v2" Version="1.38.0.1490"/>
+    <PackageReference Include="Google.Cloud.Dialogflow.V2" Version="1.0.0-beta02" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
