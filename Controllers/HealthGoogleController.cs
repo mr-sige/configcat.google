@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Google.Cloud.Dialogflow.V2;
 using Google.Protobuf;
@@ -12,8 +14,10 @@ namespace configcat.assistant.api.Controllers
         private static readonly JsonParser jsonParser =
             new JsonParser(JsonParser.Settings.Default.WithIgnoreUnknownFields(true));
 
+        private static HttpClient httpClient = new HttpClient();
+
         [HttpPost]
-        public ContentResult Post()
+        public async Task<ContentResult> Post()
         {
             WebhookRequest request;
             using (var reader = new StreamReader(Request.Body))
@@ -26,22 +30,28 @@ namespace configcat.assistant.api.Controllers
             switch (request.QueryResult.Intent.DisplayName)
             {
                 case "Health":
-                    response.FulfillmentText = "All systems are green!";
+                    response.FulfillmentText = await IsWebsiteOkAsync() ? "All systems are green!" : "There is something wrong with the website.";
+
                     break;
                 default:
                     response.FulfillmentText = "I don't understand your intent.";
                     break;
             }
 
-            response.FulfillmentText += $" Intent: {request.QueryResult.Intent.DisplayName}";
             string responseJson = response.ToString();
             return Content(responseJson, "application/json");
-    }
+        }
 
         [HttpGet]
         public IActionResult Get()
         {
             return new OkResult();
+        }
+
+        private async Task<bool> IsWebsiteOkAsync()
+        {
+            var getResponse = await httpClient.GetAsync("https://configcat.com");
+            return getResponse.IsSuccessStatusCode;
         }
     }
 }
